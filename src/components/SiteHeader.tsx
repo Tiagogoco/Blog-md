@@ -25,6 +25,9 @@ export function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-2 sm:gap-3">
+          <Link href="/posts/new" className="action-link">
+            Nueva nota
+          </Link>
           <Link href="/" className="action-link">
             Inicio
           </Link>

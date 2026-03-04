@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { deletePostAction } from "@/app/actions/postActions";
 import type { Post } from "@/domain/post";
 
 type PostCardProps = {
@@ -68,15 +69,29 @@ export function PostCard({ post, variant = "default" }: PostCardProps) {
               : ""
           }`}
         >
-          <Link
-            href={`/posts/${post.slug}`}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-300 transition-colors duration-150 group-hover:text-sky-200"
-          >
-            Leer post
-            <span className="text-base transition-transform duration-150 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              href={`/posts/${post.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-3 py-1.5 text-sm font-semibold text-slate-300 transition-colors duration-150 group-hover:text-sky-200 hover:border-sky-300/70"
+            >
+              Leer
+            </Link>
+            <Link
+              href={`/posts/${post.slug}/edit`}
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-3 py-1.5 text-sm font-semibold text-slate-300 transition-colors duration-150 hover:border-sky-300/70 hover:text-sky-200"
+            >
+              Editar
+            </Link>
+            <form action={deletePostAction}>
+              <input type="hidden" name="slug" value={post.slug} />
+              <button
+                type="submit"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-red-300/55 px-3 py-1.5 text-sm font-semibold text-red-200 transition-colors duration-150 hover:border-red-300 hover:bg-red-500/10 hover:text-red-100"
+              >
+                Eliminar
+              </button>
+            </form>
+          </div>
           {isFeatured && (
             <p className="max-w-56 text-right text-xs uppercase tracking-[0.18em] text-slate-500">
               Nota destacada
